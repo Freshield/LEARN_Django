@@ -74,11 +74,6 @@
             <path>
               <item name="MyDjango" type="b2602c69:ProjectViewProjectNode" />
               <item name="MyDjango" type="462c0819:PsiDirectoryNode" />
-              <item name="index" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MyDjango" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MyDjango" type="462c0819:PsiDirectoryNode" />
               <item name="MyDjango" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -183,7 +178,7 @@
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" />
       <window_info anchor="bottom" id="Terminal" weight="0.32959184" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16495956" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16495956" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="right" id="Database" />
       <window_info anchor="right" id="SciView" />
