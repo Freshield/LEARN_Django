@@ -6,3 +6,6 @@ def index(request):
 
 def mydate(request, year, month, day):
     return HttpResponse('%s/%s/%s' % (str(year), str(month), str(day)))
+
+def myyear(request, year):
+    return render(request, 'myyear.html')
