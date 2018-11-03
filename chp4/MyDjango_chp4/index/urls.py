@@ -4,8 +4,8 @@
 @License: (C) Copyright 2018, BEIJING LINKING MEDICAL TECHNOLOGY CO., LTD.
 @Contact: yangyufresh@163.com
 @File: urls.py
-@Time: 2018-10-20 17:21
-@Last_update: 2018-10-20 17:21
+@Time: 2018-11-03 16:00
+@Last_update: 2018-11-03 16:00
 @Desc: None
 @==============================================@
 @      _____             _   _     _   _       @
@@ -15,12 +15,11 @@
 @                                    Freshield @
 @==============================================@
 """
-from django.urls import path, re_path
+from django.urls import path
 from . import views
+
 urlpatterns = [
     path('download.html', views.download),
-    path('', views.index),
-    re_path('(?P<year>[0-9]{4}).html', views.myyear_dict, {'month': '05'}, name='myyear_dict'),
-    re_path('(?P<year>[0-9]{4}).html', views.myyear, name='myyear'),
-    re_path('(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2}).html', views.mydate)
+    path('login.html', views.login),
+    path('', views.index)
 ]

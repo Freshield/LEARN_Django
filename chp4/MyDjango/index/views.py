@@ -1,6 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+import csv
+
 # Create your views here.
+def download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachement; filename="somefilename.csv'
+    writer = csv.writer(response)
+    writer.writerow(['First row', 'A', 'B', 'C'])
+    return response
+
 def index(request):
     return HttpResponse("Hello world")
 
