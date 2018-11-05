@@ -12,7 +12,15 @@ def download(request):
     return response
 
 def login(request):
-    return redirect('/')
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        return redirect('/')
+    else:
+        if request.GET.get('name'):
+            name = request.GET.get('name')
+        else:
+            name = 'Everyone'
+        return HttpResponse('username is %s' % (name))
 
 def index(request):
     type_list = Product.objects.values('type').distinct()
