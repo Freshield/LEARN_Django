@@ -21,5 +21,7 @@ from . import views
 urlpatterns = [
     path('download.html', views.download),
     path('login.html', views.login),
+    path('index/', views.ProductList.as_view()),
+    path('index/<id>.html', views.ProductList.as_view(), {'name':'phone'}),
     path('', views.index)
 ]
