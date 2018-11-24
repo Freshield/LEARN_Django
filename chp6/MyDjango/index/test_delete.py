@@ -3,9 +3,9 @@
 @Author: Freshield
 @License: (C) Copyright 2018, BEIJING LINKING MEDICAL TECHNOLOGY CO., LTD.
 @Contact: yangyufresh@163.com
-@File: urls.py
-@Time: 2019-01-17 10:47
-@Last_update: 2019-01-17 10:47
+@File: test_delete.py
+@Time: 2018-11-24 14:35
+@Last_update: 2018-11-24 14:35
 @Desc: None
 @==============================================@
 @      _____             _   _     _   _       @
@@ -15,11 +15,10 @@
 @                                    Freshield @
 @==============================================@
 """
-from django.urls import path
-from . import test_insert_data, test_update, test_delete
+from .models import *
+from django.http import HttpResponse
 
-urlpatterns = [
-    path('test_insert', test_insert_data.test_insert_data),
-    path('test_update', test_update.test_update),
-    path('test_delete', test_delete.test_delete)
-]
+def test_delete(request):
+    p = Product.objects.filter(id=12)
+    p.delete()
+    return HttpResponse('name:%s type:%s' % (p.name, p.type_id))
