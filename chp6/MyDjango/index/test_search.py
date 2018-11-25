@@ -3,9 +3,9 @@
 @Author: Freshield
 @License: (C) Copyright 2018, BEIJING LINKING MEDICAL TECHNOLOGY CO., LTD.
 @Contact: yangyufresh@163.com
-@File: urls.py
-@Time: 2019-01-17 10:47
-@Last_update: 2019-01-17 10:47
+@File: test_search.py
+@Time: 2018-11-25 14:39
+@Last_update: 2018-11-25 14:39
 @Desc: None
 @==============================================@
 @      _____             _   _     _   _       @
@@ -15,12 +15,13 @@
 @                                    Freshield @
 @==============================================@
 """
-from django.urls import path
-from . import test_insert_data, test_update, test_delete, test_search
+from .models import *
+from django.http import HttpResponse
+from django.db.models import Q, Sum, Count
 
-urlpatterns = [
-    path('test_insert', test_insert_data.test_insert_data),
-    path('test_update', test_update.test_update),
-    path('test_delete', test_delete.test_delete),
-    path('test_search', test_search.test_search)
-]
+def test_search(request):
+    p = Product.objects.filter(id__gt=6)
+    print('here')
+    for i in p:
+        print(i.name)
+    return HttpResponse('success')
