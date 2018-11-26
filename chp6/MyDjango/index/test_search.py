@@ -20,8 +20,6 @@ from django.http import HttpResponse
 from django.db.models import Q, Sum, Count
 
 def test_search(request):
-    p = Product.objects.filter(id__gt=6)
-    print('here')
-    for i in p:
-        print(i.name)
+    p = Product.objects.select_related('type').filter(type__type_name='phone').all()
+    print(p[0].type.type_name)
     return HttpResponse('success')
