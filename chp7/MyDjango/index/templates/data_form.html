@@ -15,7 +15,7 @@
                 <table>
                     {{ product.as_table }}
                 </table>
-                <input type="submit" value="SUBMIT">
+                {{ submit | safe }}
         </form>
     {% endif %}
 </body>

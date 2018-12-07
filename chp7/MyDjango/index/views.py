@@ -24,6 +24,8 @@ def insert_data(request):
 
     return HttpResponse('success')
 
+
 def index(request):
     product = ProductForm()
+    submit = '<input type="submit" value="SUBMIT">'
     return render(request, 'data_form.html', locals())
