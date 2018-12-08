@@ -17,11 +17,18 @@
 """
 from django import forms
 from .models import *
+from django.core.exceptions import ValidationError
+
+def weights_validate(value):
+    if not str(value).isdigit():
+        raise ValidationError('please input the right weight')
 
 class ProductForm(forms.Form):
-    name = forms.CharField(max_length=20, label='NAME',)
-    weight = forms.CharField(max_length=50, label='WEIGHT')
+    name = forms.CharField(max_length=20, label='NAME', widget=forms.widgets.TextInput(attrs={'class':'c1'}),
+                           error_messages={'required':'name should not be empty'})
+    weight = forms.CharField(max_length=50, label='WEIGHT',validators=[weights_validate])
     size = forms.CharField(max_length=50, label='SIZE')
 
     choices_list = [(i+1,v['type_name']) for i,v in enumerate(Type.objects.values('type_name'))]
-    type = forms.ChoiceField(choices=choices_list, label='TYPE')
+    type = forms.ChoiceField(widget=forms.widgets.Select(attrs={'class':'type','size':'4'}),
+                             choices=choices_list, label='TYPE')

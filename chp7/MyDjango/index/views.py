@@ -26,6 +26,29 @@ def insert_data(request):
 
 
 def index(request):
-    product = ProductForm()
+    if request.method == 'GET':
+        print('get')
+        product = ProductForm()
+    else:
+        print('post')
+        product = ProductForm(request.POST)
+        if product.is_valid():
+            print('valid')
+            name = product['name']
+            cname = product.cleaned_data['name']
+            print('here')
+            print(name)
+            print(cname)
+            print(product)
+            print(product.cleaned_data)
+            return HttpResponse('success')
+        else:
+            print('error')
+            error_msg = product.errors.as_json()
+            print(error_msg)
+
+
     submit = '<input type="submit" value="SUBMIT">'
+    print('here1')
+    print(locals())
     return render(request, 'data_form.html', locals())
