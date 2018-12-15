@@ -52,3 +52,27 @@ def index(request):
     print('here1')
     print(locals())
     return render(request, 'data_form.html', locals())
+
+def model_index(request, id):
+    submit = '<input type="submit" value="SUBMIT">'
+    if request.method == 'GET':
+        instance = Product.objects.filter(id=id)
+        if instance:
+            product = ProductModelForm(instance=instance[0])
+        else:
+            product = ProductModelForm()
+        return render(request, 'data_form.html', locals())
+    else:
+        product = ProductModelForm(request.POST)
+        if product.is_valid():
+            weights = product.cleaned_data['weight']
+            product_db = product.save(commit=False)
+            print(product_db.name)
+            print(product_db.weight)
+            print(product_db.size)
+
+            return HttpResponse('success')
+        else:
+            error_msg = product.errors.as_json()
+            print(error_msg)
+            return render(request, 'data_form.html', locals())

@@ -20,5 +20,6 @@ from . import views
 
 urlpatterns = [
     path('insert_data', views.insert_data),
+    path('<int:id>.html', views.model_index),
     path('', views.index)
 ]
