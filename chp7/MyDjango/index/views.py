@@ -76,3 +76,14 @@ def model_index(request, id):
             error_msg = product.errors.as_json()
             print(error_msg)
             return render(request, 'data_form.html', locals())
+
+def test_search(request):
+    product_list = Product.objects.filter(id__gt=3)
+    for product in product_list:
+        print(product.name)
+    print(type(product_list))
+    product_list = product_list.filter(id__lt=7)
+    for product in product_list:
+        print(product.name)
+
+    return HttpResponse('success')
