@@ -8,7 +8,7 @@ admin.site.site_header = 'MyDjango'
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
 
-    list_display = ['id', 'name', 'weight', 'size', 'type',]
+    list_display = ['id', 'name', 'weight', 'size', 'type', 'colored_type']
 
     search_fields = ['id', 'name', 'weight', 'size', 'type__type_name']
 
@@ -25,3 +25,10 @@ class ProductAdmin(admin.ModelAdmin):
             self.readonly_fields = []
 
         return self.readonly_fields
+
+    def get_queryset(self, request):
+        qs = super(ProductAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs.filter(id__lt=10)
+        else:
+            return qs.filter(id__lt=6)

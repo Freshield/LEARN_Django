@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import format_html
 
 # Create your models here.
 class Type(models.Model):
@@ -20,3 +21,19 @@ class Product(models.Model):
 
     class Meta:
         verbose_name_plural = 'product information'
+
+    def colored_type(self):
+        if 'phone' in self.type.type_name:
+            color_code = 'red'
+        elif 'tablet' in self.type.type_name:
+            color_code = 'blue'
+        elif 'smart_wear' in self.type.type_name:
+            color_code = 'green'
+        else:
+            color_code = 'yellow'
+
+        return format_html(
+            '<span style="color: {};">{}</span>', color_code, self.type
+        )
+
+    colored_type.short_description = 'colored product type'
