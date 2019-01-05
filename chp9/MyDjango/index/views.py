@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
 
@@ -8,9 +8,12 @@ def hello_world(request):
 
 def index(request):
     username = request.user.username
-    type_list = Type.objects.values('type_name').distinct()
-    name_list = Product.objects.values('name', 'type__type_name')
-    return render(request, 'index.html', locals())
+    if username:
+        type_list = Type.objects.values('type_name').distinct()
+        name_list = Product.objects.values('name', 'type__type_name')
+        return render(request, 'index.html', locals())
+    else:
+        return redirect('/user/login.html')
 
 def insert_data(request):
     Type.objects.create(id=1, type_name='phone')
