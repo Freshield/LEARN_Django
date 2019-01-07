@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.hashers import make_password
+import random
 
 # Create your views here.
 def loginView(request):
@@ -65,7 +67,45 @@ def setpasswordView(request):
 
     return render(request, 'user.html', locals())
 
+
 def logoutView(request):
     logout(request)
     return redirect('/')
+
+
+def findPassword(request):
+    button = 'get verification code'
+    new_password = False
+    if request.method == 'POST':
+        username = request.POST.get('username', 'root')
+        print(username)
+        VerificationCode = request.POST.get('VerificationCode', '')
+        password = request.POST.get('password', '')
+        user = User.objects.filter(username=username)
+        if not user:
+            tips = "user: %s don't exist" % username
+        else:
+            if not request.session.get('VerificationCode', ''):
+                button = 'reset password'
+                tips = 'verificaiton code sent'
+                new_password = True
+                VerificationCode = str(random.randint(1000, 9999))
+                request.session['VerificationCode'] = VerificationCode
+                user[0].email_user('reset password', VerificationCode)
+            elif VerificationCode == request.session.get('VerificationCode'):
+                print(password)
+                # dj_ps = make_password(password, None, 'pbkdf2_sha256')
+                # print(dj_ps)
+                # user[0].password = dj_ps
+                print(user)
+                user[0].set_password(password)
+                user[0].save()
+                del request.session['VerificationCode']
+                tips = 'password was reset'
+            else:
+                tips = 'Verification code error, please reget'
+                new_password = False
+                del request.session['VerificationCode']
+
+    return render(request, 'findPassword.html', locals())
 
