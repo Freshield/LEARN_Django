@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.hashers import make_password
 import random
+from .form import MyUserCreationForm
 
 # Create your views here.
 def loginView(request):
@@ -108,4 +109,16 @@ def findPassword(request):
                 del request.session['VerificationCode']
 
     return render(request, 'findPassword.html', locals())
+
+def user_form_register(request):
+    if request.method == 'POST':
+        user = MyUserCreationForm(request.POST)
+        if user.is_valid():
+            user.save()
+            tips = 'success'
+            user = MyUserCreationForm()
+    else:
+        user = MyUserCreationForm()
+
+    return render(request, 'user_form_register.html', locals())
 
