@@ -56,7 +56,7 @@ ROOT_URLCONF = 'MyDjango.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'index/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -77,6 +77,22 @@ WSGI_APPLICATION = 'MyDjango.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_db',
+        'USER': 'root',
+        'PASSWORD': '8888',
+        'HOST': '127.0.0.1',
+        'PORT': '3306'
+    },
+    'MyDjango': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'MyDjango_db',
+        'USER': 'root',
+        'PASSWORD': '8888',
+        'HOST': '127.0.0.1',
+        'PORT': '3306'
+    },
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
@@ -121,3 +137,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'public_static'), os.path.join(BASE_DIR, 'index/index_static')]
