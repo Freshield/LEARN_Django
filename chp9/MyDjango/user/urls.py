@@ -16,7 +16,7 @@
 @==============================================@
 """
 from django.urls import path
-from . import views
+from . import views, test_user_permission
 
 urlpatterns = [
     path('login.html', views.loginView, name='login'),
@@ -24,5 +24,6 @@ urlpatterns = [
     path('setpassword.html', views.setpasswordView, name='setpassword'),
     path('logout.html', views.logoutView, name='logout'),
     path('findPassword.html', views.findPassword, name='findPassword'),
-    path('user_form_register.html', views.user_form_register, name='user_form_register')
+    path('user_form_register.html', views.user_form_register, name='user_form_register'),
+    path('test_user_permission', test_user_permission.test_user_permission)
 ]
