@@ -16,8 +16,9 @@
 @==============================================@
 """
 from django.urls import path
-from . import test_insert_data
+from . import test_insert_data, test_update
 
 urlpatterns = [
-    path('test_insert', test_insert_data.test_insert_data)
+    path('test_insert', test_insert_data.test_insert_data),
+    path('test_update', test_update.test_update)
 ]

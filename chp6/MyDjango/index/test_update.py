@@ -3,9 +3,9 @@
 @Author: Freshield
 @License: (C) Copyright 2018, BEIJING LINKING MEDICAL TECHNOLOGY CO., LTD.
 @Contact: yangyufresh@163.com
-@File: test_insert_data.py
-@Time: 2018-11-12 22:29
-@Last_update: 2018-11-12 22:29
+@File: test_update.py
+@Time: 2019-01-17 14:28
+@Last_update: 2019-01-17 14:28
 @Desc: None
 @==============================================@
 @      _____             _   _     _   _       @
@@ -15,21 +15,11 @@
 @                                    Freshield @
 @==============================================@
 """
-from index.models import *
+from .models import *
 from django.http import HttpResponse
 
-def test_insert_data(request):
-    # t = Type()
-    # t.id = 4
-    # t.type_name = 'accessory'
-    # t.save()
-
-    p = Product()
-    p.name = 'v9'
-    p.weight = '111g'
-    p.size = '120*75*7mm'
-    p.type_id = 1
+def test_update(request):
+    p = Product.objects.get(id=12)
+    p.name = 'v9999'
     p.save()
     return HttpResponse('name:%s type:%s'%(p.name, p.type_id))
-# Product.objects.create(
-#     name='荣耀V9', weight='111g', size='120*75*7mm', type_id=1)
