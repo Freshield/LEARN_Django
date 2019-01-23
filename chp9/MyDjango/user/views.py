@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.hashers import make_password
 import random
 from .form import MyUserCreationForm
+from .models import MyUser
 
 # Create your views here.
 def loginView(request):
@@ -16,7 +16,7 @@ def loginView(request):
     if request.method == 'POST':
         username = request.POST.get('username', '')
         password =request.POST.get('password', '')
-        if User.objects.filter(username=username):
+        if MyUser.objects.filter(username=username):
             user = authenticate(username=username, password=password)
             if user:
                 if user.is_active:
@@ -38,10 +38,10 @@ def registerView(request):
     if request.method == 'POST':
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
-        if User.objects.filter(username=username):
+        if MyUser.objects.filter(username=username):
             tips = 'USER EXISTS'
         else:
-            user = User.objects.create_user(username=username, password=password)
+            user = MyUser.objects.create_user(username=username, password=password)
             user.save()
             tips = 'DONE REGISTER, PLEASE LOGIN'
 
@@ -58,7 +58,7 @@ def setpasswordView(request):
         username = request.POST.get('username', '')
         old_password = request.POST.get('password', '')
         new_password = request.POST.get('new_password', '')
-        if User.objects.filter(username=username):
+        if MyUser.objects.filter(username=username):
             user = authenticate(username=username, password=old_password)
             user.set_password(new_password)
             user.save()
@@ -82,7 +82,7 @@ def findPassword(request):
         print(username)
         VerificationCode = request.POST.get('VerificationCode', '')
         password = request.POST.get('password', '')
-        user = User.objects.filter(username=username)
+        user = MyUser.objects.filter(username=username)
         if not user:
             tips = "user: %s don't exist" % username
         else:
