@@ -2,9 +2,9 @@
 """
 @Author: Freshield
 @Contact: yangyufresh@163.com
-@File: urls.py
-@Time: 2020-08-27 14:33
-@Last_update: 2020-08-27 14:33
+@File: t1_test_request.py
+@Time: 2020-08-27 14:48
+@Last_update: 2020-08-27 14:48
 @Desc: None
 @==============================================@
 @      _____             _   _     _   _       @
@@ -14,12 +14,15 @@
 @                                    Freshield @
 @==============================================@
 """
-from django.urls import path
-from . import views
+import json
+import requests
 
-urlpatterns = [
-    path('', views.index),
-    path('index', views.index),
-    path('download.html', views.download),
-    path('test', views.test)
-]
+url = 'http://127.0.0.1:8000/test'
+# res = requests.get(url=url)
+# print(res.text)
+data = [{'name': 'here', 'data': 1}, {'name': 'here1', 'data': 2}]
+data = json.dumps(data)
+# data = {'data': data}
+# headers = {'Content-Type': 'application/json'}
+res = requests.post(url=url, json=data)
+print(res.text)
